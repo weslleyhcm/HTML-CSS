@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sociologia Acadêmica - Teste de Cores</title>
+  <style>
+    /* ===================================================
+       PALETA 1: CLÁSSICA & ACADÊMICA
+       =================================================== */
+    :root {
+      --cor-dominante: #1B365D; /* Azul Petróleo / Marinho */
+      --cor-destaque: #6B1D2F;  /* Vinho / Bordô */
+      --cor-fundo: #FDFBF7;     /* Creme / Bege Claríssimo */
+      --cor-card: #FFFFFF;      /* Branco para elevação */
+      --cor-texto: #1A1A1A;     /* Grafite Escuro para leitura */
+      --cor-texto-suave: #4A5568;/* Texto secundário */
+      --cor-player-bg: #0F1D32; /* Fundo escuro focado para o player */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', 'Times New Roman', serif, system-ui;
+    }
+
+    body {
+      background-color: var(--cor-fundo);
+      color: var(--cor-texto);
+      line-height: 1.6;
+    }
+
+    /* Cabeçalho / Navbar */
+    header {
+      background-color: var(--cor-dominante);
+      color: #FFFFFF;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: normal;
+      letter-spacing: 0.5px;
+    }
+
+    nav a {
+      color: #FFFFFF;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    nav a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    /* Hero Section / Banner Inicial */
+    .hero {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hero-text h2 {
+      font-size: 2.2rem;
+      color: var(--cor-dominante);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero-text p {
+      font-size: 1.1rem;
+      color: var(--cor-texto-suave);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Botão de Destaque (CTA) */
+    .btn-primary {
+      background-color: var(--cor-destaque);
+      color: #FFFFFF;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #521523;
+    }
+
+    /* Área do Player de Vídeo */
+    .video-container {
+      background-color: var(--cor-player-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      color: #FFFFFF;
+    }
+
+    .video-placeholder {
+      aspect-ratio: 16 / 9;
+      background-color: #050B14;
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .play-button {
+      width: 60px;
+      height: 60px;
+      background-color: var(--cor-destaque);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .play-button::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 18px solid #FFFFFF;
+      margin-left: 4px;
+    }
+
+    /* Lista de Módulos e Aulas */
+    .modules-section {
+      max-width: 1100px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .modules-section h3 {
+      color: var(--cor-dominante);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      border-bottom: 2px solid var(--cor-destaque);
+      display: inline-block;
+      padding-bottom: 0.3rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background-color: var(--cor-card);
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-tag {
+      font-size: 0.8rem;
+      color: var(--cor-destaque);
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .card h4 {
+      margin: 0.5rem 0;
+      color: var(--cor-dominante);
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--cor-texto-suave);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header>
+    <h1>Sociologia & Academia</h1>
+    <nav>
+      <a href="#">Cursos</a>
+      <a href="#">Aulas Gravadas</a>
+      <a href="#">Material de Apoio</a>
+    </nav>
+  </header>
+
+  <!-- Seção Principal -->
+  <section class="hero">
+    <div class="hero-text">
+      <h2>Teoria Sociológica e Pensamento Crítico</h2>
+      <p>Acesse o acervo completo de aulas gravadas com foco em vestibulares, suporte acadêmico e análise das estruturas sociais clássicas.</p>
+      <button class="btn-primary">Matricular-se Agora</button>
+    </div>
+
+    <!-- Simulação do Player de Vídeo -->
+    <div class="video-container">
+      <div class="video-placeholder">
+        <div class="play-button"></div>
+      </div>
+      <h4>Aula 01: Émile Durkheim e o Fato Social</h4>
+      <p style="font-size: 0.85rem; opacity: 0.8;">Duração: 45 min • Módulo 1</p>
+    </div>
+  </section>
+
+  <!-- Módulos de Aulas -->
+  <section class="modules-section">
+    <h3>Módulos em Destaque</h3>
+    <div class="cards-grid">
+      <div class="card">
+        <span class="card-tag">Módulo 01</span>
+        <h4>Fundamentos da Sociologia</h4>
+        <p>Estudo das origens da disciplina, contexto histórico da Revolução Industrial e os métodos clássicos de investigação.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">Módulo 02</span>
+        <h4>Karl Marx e a Crítica ao Capitalismo</h4>
+        <p>Análise detalhada sobre luta de classes, alienação, mais-valia e materialismo histórico dialético.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">Módulo 03</span>
+        <h4>Max Weber e a Ação Social</h4>
+        <p>Compreensão dos tipos ideais, ética protestante, racionalização e o conceito de dominação legítima.</p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
