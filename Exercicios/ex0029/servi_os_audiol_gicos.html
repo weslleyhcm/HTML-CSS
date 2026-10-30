@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AudioVita - Centro de Saúde Auditiva & Audiologia</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            500: '#14b8a6', // Teal Accent
+                            600: '#0d9488',
+                            800: '#115e59',
+                            900: '#0f172a', // Deep Navy/Slate
+                            dark: '#0a1120'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos personalizados de Parallax e Efeitos Visuais */
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Efeito Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Animação suave para ondas sonoras */
+        @keyframes pulse-wave {
+            0%, 100% { transform: scaleY(0.6); opacity: 0.6; }
+            50% { transform: scaleY(1.2); opacity: 1; }
+        }
+
+        .wave-bar {
+            animation: pulse-wave 1.2s ease-in-out infinite;
+        }
+        .wave-bar:nth-child(2) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.4s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.1s; }
+        .wave-bar:nth-child(5) { animation-delay: 0.3s; }
+
+        /* Suporte para telas touch onde background-attachment: fixed falha */
+        @supports (-webkit-touch-callout: none) {
+            .parallax-bg {
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans">
+
+    <!-- Header / Sticky Navbar -->
+    <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 glass-nav shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-brand-500 text-white flex items-center justify-center shadow-lg shadow-brand-500/30 group-hover:bg-brand-600 transition">
+                    <div class="flex items-center gap-0.5 h-5">
+                        <span class="w-1 h-3 bg-white rounded-full wave-bar"></span>
+                        <span class="w-1 h-5 bg-white rounded-full wave-bar"></span>
+                        <span class="w-1 h-2 bg-white rounded-full wave-bar"></span>
+                        <span class="w-1 h-4 bg-white rounded-full wave-bar"></span>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-heading font-bold text-xl text-slate-900 tracking-tight">Audio<span class="text-brand-500">Vita</span></span>
+                    <span class="text-[10px] uppercase tracking-widest text-slate-500 -mt-1 font-semibold">Saúde Auditiva</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 font-medium text-slate-700">
+                <a href="#home" class="hover:text-brand-600 transition">Início</a>
+                <a href="#servicos" class="hover:text-brand-600 transition">Serviços</a>
+                <a href="#sobre" class="hover:text-brand-600 transition">Sobre Nós</a>
+                <a href="#depoimentos" class="hover:text-brand-600 transition">Depoimentos</a>
+                <a href="#contato" class="hover:text-brand-600 transition">Contato</a>
+            </nav>
+
+            <!-- Action Button Header -->
+            <div class="hidden md:block">
+                <a href="#agendamento" class="px-5 py-2.5 bg-brand-500 text-white font-semibold rounded-full hover:bg-brand-600 shadow-md shadow-brand-500/20 transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                    Agendar Consulta
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-slate-700 hover:text-brand-500 focus:outline-none p-2" aria-label="Abrir Menu">
+                <i data-lucide="menu" class="w-7 h-7"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-3">
+            <a href="#home" class="block text-slate-700 font-medium hover:text-brand-500 py-1">Início</a>
+            <a href="#servicos" class="block text-slate-700 font-medium hover:text-brand-500 py-1">Serviços</a>
+            <a href="#sobre" class="block text-slate-700 font-medium hover:text-brand-500 py-1">Sobre Nós</a>
+            <a href="#depoimentos" class="block text-slate-700 font-medium hover:text-brand-500 py-1">Depoimentos</a>
+            <a href="#contato" class="block text-slate-700 font-medium hover:text-brand-500 py-1">Contato</a>
+            <a href="#agendamento" class="block text-center w-full mt-4 px-5 py-2.5 bg-brand-500 text-white font-semibold rounded-xl hover:bg-brand-600">
+                Agendar Consulta
+            </a>
+        </div>
+    </header>
+
+    <!-- 1. Hero Section com Parallax -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center parallax-bg pt-20" style="background-image: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2000&auto=format&fit=crop');">
+        <!-- Overlay escuro e gradiente suave -->
+        <div class="absolute inset-0 bg-slate-900/60 bg-gradient-to-r from-slate-900/80 via-slate-900/60 to-transparent"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-white w-full">
+            <div class="max-w-2xl space-y-6">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/20 border border-brand-400/30 text-brand-200 text-sm font-medium backdrop-blur-md">
+                    <i data-lucide="heart-pulse" class="w-4 h-4 text-brand-400"></i>
+                    <span>Cuidado Audiológico de Excelência</span>
+                </div>
+                
+                <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
+                    Conecte-se com os <span class="text-brand-200">sons do mundo</span> novamente.
+                </h1>
+
+                <p class="text-lg sm:text-xl text-slate-200 font-light leading-relaxed">
+                    Recupere a nitidez nas conversas com quem você ama. Oferecemos exames modernos, aparelhos auditivos discretos de alta tecnologia e reabilitação personalizada.
+                </p>
+
+                <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                    <a href="#agendamento" class="px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-xl text-center shadow-lg shadow-brand-500/30 transition transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                        <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                        Agendar Avaliação Gratuita
+                    </a>
+                    <a href="#servicos" class="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl text-center border border-white/20 backdrop-blur-md transition flex items-center justify-center gap-2">
+                        Conhecer Exames
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                </div>
+
+                <!-- Stats rápidos no Hero -->
+                <div class="pt-10 grid grid-cols-3 gap-6 border-t border-white/10 mt-8">
+                    <div>
+                        <p class="text-2xl sm:text-3xl font-bold text-brand-200">15+</p>
+                        <p class="text-xs sm:text-sm text-slate-300">Anos de Experiência</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl sm:text-3xl font-bold text-brand-200">5k+</p>
+                        <p class="text-xs sm:text-sm text-slate-300">Pacientes Atendidos</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl sm:text-3xl font-bold text-brand-200">99%</p>
+                        <p class="text-xs sm:text-sm text-slate-300">Satisfação Garantida</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Seção Nossos Serviços -->
+    <section id="servicos" class="py-24 bg-slate-50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-600 font-semibold uppercase tracking-wider text-sm">O que oferecemos</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 mt-2">Soluções Audiológicas Completas</h2>
+                <p class="text-slate-600 mt-4 text-lg">
+                    Utilizamos tecnologia avançada e metodologias humanizadas para diagnosticar, adaptar e reabilitar a sua audição.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Service Card 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-brand-50 text-brand-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="activity" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Audiometria Tonal e Vocal</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm">
+                        Avaliação minuciosa da capacidade auditiva para identificar o nível de audição e o grau de compreensão de fala em ambientes silenciosos e ruidosos.
+                    </p>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-brand-50 text-brand-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="ear" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Aparelhos Auditivos Modernos</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm">
+                        Seleção e adaptação de próteses auditivas invisíveis, recarregáveis e com conexão Bluetooth com smartphones para máxima praticidade no dia a dia.
+                    </p>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-brand-50 text-brand-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="bell-off" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Tratamento para Zumbido</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm">
+                        Terapia especializada para o alívio e controle do zumbido no ouvido (Tinnitus), combinando tecnologia sonora e acompanhamento terapêutico.
+                    </p>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-brand-50 text-brand-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="brain-circuit" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Reabilitação Auditiva</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm">
+                        Treinamento auditivo neurofuncional para reabilitar o cérebro na interpretação adequada dos sons do ambiente e da fala.
+                    </p>
+                </div>
+
+                <!-- Service Card 5 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-brand-50 text-brand-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="shield-check" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Protetores Personalizados</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm">
+                        Moldes sob medida para músicos, trabalhadores expostos ao ruído e tampões para natação, garantindo conforto e proteção eficaz.
+                    </p>
+                </div>
+
+                <!-- Service Card 6 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-brand-50 text-brand-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="stethoscope" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-slate-900 mb-3">Impedanciometria</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm">
+                        Exame rápido e indolor para avaliar a integridade do ouvido médio, a mobilidade do tímpano e os ossículos da audição.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Banner Parallax Intermediário -->
+    <section class="relative py-32 parallax-bg flex items-center justify-center" style="background-image: url('https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=2000&auto=format&fit=crop');">
+        <div class="absolute inset-0 bg-slate-950/70"></div>
+        
+        <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white space-y-6">
+            <i data-lucide="quote" class="w-12 h-12 text-brand-400 mx-auto opacity-80"></i>
+            <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+                "Ouvir bem é sentir a vida em sua plenitude."
+            </h2>
+            <p class="text-lg text-slate-300 max-w-2xl mx-auto font-light">
+                Não deixe que a perda auditiva isole você do convívio social. Agende seu teste auditivo e experimente a tecnologia dos aparelhos modernos sem compromisso.
+            </p>
+            <div class="pt-4">
+                <a href="#agendamento" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-500 text-white font-semibold rounded-xl hover:bg-brand-600 shadow-xl shadow-brand-500/30 transition transform hover:scale-105">
+                    <i data-lucide="phone-call" class="w-5 h-5"></i>
+                    Falar com um Especialista
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Seção Sobre Nós & Diferenciais -->
+    <section id="sobre" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                
+                <!-- Imagem com composição visual -->
+                <div class="relative">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?q=80&w=1000&auto=format&fit=crop" alt="Fonoaudióloga com paciente" class="w-full h-[500px] object-cover hover:scale-105 transition duration-700">
+                    </div>
+                    <!-- Card flutuante de destaque -->
+                    <div class="absolute -bottom-8 -right-4 sm:right-8 glass-card p-6 rounded-2xl shadow-xl max-w-xs border border-white">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-brand-500 text-white rounded-full flex items-center justify-center shrink-0">
+                                <i data-lucide="award" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Certificação OWA</h4>
+                                <p class="text-xs text-slate-600">Excelência em Padrões Audiológicos Internacionais</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conteúdo -->
+                <div class="space-y-6">
+                    <span class="text-brand-600 font-semibold uppercase tracking-wider text-sm">Sobre a AudioVita</span>
+                    <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
+                        Cuidado humano com apoio da mais alta tecnologia.
+                    </h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Na <strong>AudioVita</strong>, acreditamos que cada orelha é única. Nossa equipe é composta por fonoaudiólogos altamente qualificados e especializados em audiologia clínica.
+                    </p>
+                    
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-start gap-4">
+                            <div class="p-2 bg-brand-50 text-brand-600 rounded-lg mt-1">
+                                <i data-lucide="check" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-slate-900">Atendimento Humanizado</h4>
+                                <p class="text-sm text-slate-600">Consultas sem pressa, focadas na sua rotina e necessidade individual.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="p-2 bg-brand-50 text-brand-600 rounded-lg mt-1">
+                                <i data-lucide="check" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-slate-900">Teste Sem Compromisso</h4>
+                                <p class="text-sm text-slate-600">Experimente o aparelho auditivo em sua casa antes de tomar qualquer decisão.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="p-2 bg-brand-50 text-brand-600 rounded-lg mt-1">
+                                <i data-lucide="check" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-slate-900">Acompanhamento Vitalício</h4>
+                                <p class="text-sm text-slate-600">Suporte contínuo, revisões periódicas e limpeza dos aparelhos sem custo adicional.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Depoimentos dos Clientes -->
+    <section id="depoimentos" class="py-24 bg-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-600 font-semibold uppercase tracking-wider text-sm">Histórias Reais</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-slate-900 mt-2">O que dizem nossos pacientes</h2>
+                <p class="text-slate-600 mt-4">
+                    Veja como a renovação da saúde auditiva transformou a rotina de quem confia no nosso trabalho.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Depoimento 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200/60 relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-amber-400 gap-1 mb-4">
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        </div>
+                        <p class="text-slate-700 italic text-sm leading-relaxed mb-6">
+                            "Eu não percebia o quanto estava me isolando das conversas de família. O aparelho auditivo é tão discreto que ninguém nota. Voltei a ouvir os risos dos meus netos!"
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-4 border-t border-slate-100 pt-4">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop" alt="Maria do Carmo" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Maria do Carmo S.</h4>
+                            <p class="text-xs text-slate-500">68 anos - Aposentada</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depoimento 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200/60 relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-amber-400 gap-1 mb-4">
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        </div>
+                        <p class="text-slate-700 italic text-sm leading-relaxed mb-6">
+                            "Sofria muito com zumbido constante no ouvido que atrapalhava meu sono e foco no trabalho. A terapia de som da AudioVita trouxe o alívio que eu precisava."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-4 border-t border-slate-100 pt-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="Roberto Alves" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Roberto Alves</h4>
+                            <p class="text-xs text-slate-500">45 anos - Engenheiro</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depoimento 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200/60 relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-amber-400 gap-1 mb-4">
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        </div>
+                        <p class="text-slate-700 italic text-sm leading-relaxed mb-6">
+                            "Atendimento excepcional desde a recepção até a fonoaudióloga. Explicaram detalhadamente o meu exame de audiometria. Recomendo de olhos fechados!"
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-4 border-t border-slate-100 pt-4">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop" alt="Fernanda Lima" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Fernanda Lima</h4>
+                            <p class="text-xs text-slate-500">38 anos - Advogada</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Seção Parallax com Formulário de Agendamento e Contato -->
+    <section id="agendamento" class="relative py-24 parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=2000&auto=format&fit=crop');">
+        <div class="absolute inset-0 bg-slate-900/80 backdrop-blur-xs"></div>
+
+        <div id="contato" class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Informações de Contato -->
+                <div class="lg:col-span-5 text-white space-y-8">
+                    <div>
+                        <span class="text-brand-300 font-semibold uppercase tracking-wider text-sm">Agende sua Visita</span>
+                        <h2 class="font-heading text-3xl sm:text-4xl font-bold mt-2">Pronto para ouvir o melhor da vida?</h2>
+                        <p class="text-slate-300 mt-4 leading-relaxed">
+                            Preencha o formulário para marcar uma avaliação auditiva ou entre em contato direto pelos nossos canais.
+                        </p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-brand-500/20 border border-brand-400/30 rounded-xl flex items-center justify-center shrink-0 text-brand-300">
+                                <i data-lucide="map-pin" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Endereço</h4>
+                                <p class="text-slate-300 text-sm">Av. Paulista, 1500 - Conj. 802 - Bela Vista, São Paulo - SP</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-brand-500/20 border border-brand-400/30 rounded-xl flex items-center justify-center shrink-0 text-brand-300">
+                                <i data-lucide="phone" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Telefone & WhatsApp</h4>
+                                <p class="text-slate-300 text-sm">(11) 3456-7890 / (11) 98765-4321</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-brand-500/20 border border-brand-400/30 rounded-xl flex items-center justify-center shrink-0 text-brand-300">
+                                <i data-lucide="clock" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Horário de Atendimento</h4>
+                                <p class="text-slate-300 text-sm">Segunda a Sexta: 08:00 às 18:00 | Sábado: 08:00 às 12:00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card com Formulário Interativo -->
+                <div class="lg:col-span-7">
+                    <div class="glass-card p-8 sm:p-10 rounded-3xl shadow-2xl">
+                        <h3 class="font-heading text-2xl font-bold text-slate-900 mb-2">Solicitar Consulta</h3>
+                        <p class="text-slate-600 text-sm mb-6">Entraremos em contato em até 2 horas úteis para confirmar seu horário.</p>
+
+                        <form id="booking-form" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-slate-700 mb-1">Nome Completo</label>
+                                    <input type="text" required placeholder="Ex: João da Silva" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white/80 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-slate-700 mb-1">Telefone / WhatsApp</label>
+                                    <input type="tel" required placeholder="(11) 99999-9999" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white/80 text-sm">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-slate-700 mb-1">E-mail</label>
+                                    <input type="email" required placeholder="seu@email.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white/80 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-slate-700 mb-1">Serviço de Interesse</label>
+                                    <select class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white/80 text-sm text-slate-700">
+                                        <option>Exame de Audiometria</option>
+                                        <option>Aparelhos Auditivos</option>
+                                        <option>Tratamento de Zumbido</option>
+                                        <option>Reabilitação Auditiva</option>
+                                        <option>Outros / Dúvidas</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-slate-700 mb-1">Mensagem (Opcional)</label>
+                                <textarea rows="3" placeholder="Conte-nos brevemente como podemos ajudar..." class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white/80 text-sm"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-xl shadow-lg shadow-brand-500/30 transition transform active:scale-95 flex items-center justify-center gap-2">
+                                <i data-lucide="send" class="w-5 h-5"></i>
+                                Enviar Solicitação
+                            </button>
+                        </form>
+
+                        <!-- Feedback de Sucesso (Oculto Inicialmente) -->
+                        <div id="form-feedback" class="hidden mt-4 p-4 rounded-xl bg-emerald-100 text-emerald-800 text-sm text-center border border-emerald-200">
+                            <p class="font-bold">Solicitação enviada com sucesso!</p>
+                            <p class="text-xs mt-1">Nossa equipe entrará em contato em breve para agendar seu horário.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Rodapé / Footer -->
+    <footer class="bg-brand-dark text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                
+                <div class="space-y-4">
+                    <a href="#" class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-brand-500 text-white flex items-center justify-center">
+                            <i data-lucide="ear" class="w-5 h-5"></i>
+                        </div>
+                        <span class="font-heading font-bold text-xl text-white">Audio<span class="text-brand-500">Vita</span></span>
+                    </a>
+                    <p class="text-xs leading-relaxed text-slate-400">
+                        Excelência e dedicação ao cuidado da saúde auditiva, devolvendo a alegria de ouvir os melhores momentos da vida.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Links Rápidos</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#home" class="hover:text-brand-400 transition">Início</a></li>
+                        <li><a href="#servicos" class="hover:text-brand-400 transition">Serviços</a></li>
+                        <li><a href="#sobre" class="hover:text-brand-400 transition">Sobre Nós</a></li>
+                        <li><a href="#depoimentos" class="hover:text-brand-400 transition">Depoimentos</a></li>
+                        <li><a href="#agendamento" class="hover:text-brand-400 transition">Agendamento</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Exames & Tratamentos</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#servicos" class="hover:text-brand-400 transition">Audiometria Tonal e Vocal</a></li>
+                        <li><a href="#servicos" class="hover:text-brand-400 transition">Adaptação de Aparelhos</a></li>
+                        <li><a href="#servicos" class="hover:text-brand-400 transition">Terapia de Zumbido</a></li>
+                        <li><a href="#servicos" class="hover:text-brand-400 transition">Treinamento Auditivo</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Redes Sociais</h4>
+                    <p class="text-xs text-slate-400 mb-4">Siga nossas redes para dicas diárias sobre saúde auditiva.</p>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-brand-500 hover:text-white flex items-center justify-center transition">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-brand-500 hover:text-white flex items-center justify-center transition">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-brand-500 hover:text-white flex items-center justify-center transition">
+                            <i data-lucide="youtube" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="border-t border-slate-800 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500">
+                <p>&copy; 2026 AudioVita Clínica Audiológica. Todos os direitos reservados.</p>
+                <p class="mt-2 sm:mt-0">Responsável Técnica: Dra. Camila Rocha - CRFa 2-12345</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts da Página -->
+    <script>
+        // Inicialização dos Ícones Lucide
+        lucide.createIcons();
+
+        // Controle do Menu Mobile
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Fechar menu mobile ao clicar em um link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Efeito de Mudar Navbar ao Rolar a Página
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-2.5');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.remove('py-2.5');
+                navbar.classList.add('py-4');
+            }
+        });
+
+        // Simulação de Envio do Formulário de Contato
+        const bookingForm = document.getElementById('booking-form');
+        const formFeedback = document.getElementById('form-feedback');
+
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            bookingForm.reset();
+            formFeedback.classList.remove('hidden');
+            setTimeout(() => {
+                formFeedback.classList.add('hidden');
+            }, 6000);
+        });
+    </script>
+</body>
+</html>
