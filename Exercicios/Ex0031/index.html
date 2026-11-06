@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+
+    <style>
+        fieldset {
+    width: 400px; /* Define uma largura fixa menor */
+    max-width: 90%; /* Garante que ele não ultrapasse telas de celular */
+    margin-bottom: 15px; /* Cria um espaçamento entre um fieldset e outro */
+    padding: 15px; /* Adiciona um espaço interno amigável */
+        }
+
+
+    </style>
+</head>
+<body>
+    
+<h1>Formulário de Inscrição</h1>
+    <form action="cadastro.php" method="get" autocomplete="on">
+        <fieldset>
+            <legend>Dados Pessoais:</legend>
+            <label for="inome">Nome:</label> 
+            <input type="text" name="nome" id="inome" autocomplete="off" required>
+            <br><br>
+            <label for="isobrenome">Sobrenome:</label> 
+            <input type="text" name="sobrenome" id="isobrenome" autocomplete="off" required>
+        </fieldset>
+            
+        <fieldset>
+            <legend>Gênero:</legend>
+            <input type="radio" name="gênero" id="igemas" required>
+            <label for="igemas">Masculino</label> <br>
+            <input type="radio" name="gênero" id="igefem" required>
+            <label for="igefem">Feminino</label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Dados de Contato:</legend>
+            <label for="iemail">E-mail:</label>
+            <input type="email" name="email" id="iemail" autocomplete="off" required> 
+            <br><br>
+            <label for="itel">Telefone:</label>
+            <input type="tel" name="tel" id="itel" autocomplete="off" required>
+        </fieldset>
+
+        <fieldset>
+            <legend>Motivo da Inscrição:</legend>
+            <input type="checkbox" name="vest" id="ivest">
+            <label for="ivest">Vestibular</label> <br>
+            <input type="checkbox" name="enem" id="ienem">
+            <label for="ienem">ENEM</label> <br>
+            <input type="checkbox" name="red" id="ired">
+            <label for="ired">Repertório de Redação ENEM</label> <br>
+            <input type="checkbox" name="esc" id="iesc">
+            <label for="iesc">Escola</label> <br>
+            <input type="checkbox" name="con" id="icon">
+            <label for="icon">Conhecimentos Gerais</label> <br>
+        </fieldset>
+
+        <fieldset>
+            <input type="submit" value="Enviar">
+            <input type="submit" value="Limpar">
+        </fieldset>
+    </form>
+    
+</body>
+</html>
